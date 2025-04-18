@@ -3,7 +3,7 @@ import os
 
 app = Flask(__name__)
 
-# Configure where uploaded files will be stored
+# Configure storing location
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -14,21 +14,18 @@ def home():
 
 @app.route('/upload', methods=['POST'])
 def upload_audio():
-    """
-    Expects multipart/form-data with a file field named 'audio'.
-    """
 
     if request.method == 'POST':
         print(request.data)
         audio_file = request.files['sound']
 
-        # appropriate extension check
+        # appropriate file extension check
         ALLOWED_EXT = {'wav', 'mp3', 'ogg', 'flac'}
         ext = audio_file.filename.rsplit('.', 1)[-1].lower()
         if ext not in ALLOWED_EXT:
             return jsonify({'error': f'Extension .{ext} not allowed'}), 400
 
-        # Save with a safe filename
+        # Save with filename
         save_path = os.path.join(app.config['UPLOAD_FOLDER'], audio_file.filename)
         audio_file.save(save_path)
 

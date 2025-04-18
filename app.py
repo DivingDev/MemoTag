@@ -4,9 +4,9 @@ import os
 app = Flask(__name__)
 
 # Configure storing location
-UPLOAD_FOLDER = 'uploads'
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# UPLOAD_FOLDER = 'uploads'
+# os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/', methods = ['GET','POST'])
 def home():
@@ -26,14 +26,14 @@ def upload_audio():
             return jsonify({'error': f'Extension .{ext} not allowed'}), 400
 
         # Save with filename
-        save_path = os.path.join(app.config['UPLOAD_FOLDER'], audio_file.filename)
-        audio_file.save(save_path)
+        # save_path = os.path.join(app.config['UPLOAD_FOLDER'], audio_file.filename)
+        # audio_file.save(save_path)
 
 
         return jsonify({
             'message': 'File received',
             'filename': audio_file.filename,
-            'size_bytes': os.path.getsize(save_path)
+            # 'size_bytes': os.path.getsize(save_path)
         }), 200
     
     else:

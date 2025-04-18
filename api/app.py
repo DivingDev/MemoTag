@@ -10,7 +10,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/', methods = ['GET','POST'])
 def home():
-    return render_template('main.html')
+    return render_template('/main.html')
 
 @app.route('/upload', methods=['POST'])
 def upload_audio():
